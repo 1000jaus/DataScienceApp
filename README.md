@@ -10,8 +10,8 @@ Data Imputation: Fill in missing values using different strategies (mean, median
 Standardization: Normalize and standardize the data to improve model performance.
 Feature Selection: Choose the most relevant variables for your model using advanced selection techniques.
 ## 🏆 Model Ranking and Evaluation
-Regression and Classification Models: Evaluate more than 25 different models, both for regression and classification.
-Interactive Dashboard: Visualize a performance-ranked dashboard, making it easier to compare and select the best model for your problem.
+Regression and Classification Models: Evaluate more than 25 different models, both for regression and classification. Finally 
+, visualize a performance-ranked dashboard, making it easier to compare and select the best model for your problem.
 
 ## 🚀 Getting Started
 ### 1. _Clone the Repository_:
@@ -24,7 +24,6 @@ cd DataScienceApp
 Ensure you have Python 3.8 or higher installed. Then, install the necessary dependencies:
 
 ```bash
-Copiar código
 pip install -r requirements.txt
 ```
 
