@@ -179,7 +179,7 @@ def correlaciones(df, action):
         # Eliminar pares de variables duplicadas y la correlación consigo misma
         correlacion_max = correlacion_max[correlacion_max.index.get_level_values(0) != correlacion_max.index.get_level_values(1)]
         
-        st.write('Las variables más correlacionadas son:')
+        st.write('Most correlated variables ranking:')
         for i, (variables, correlacion) in enumerate(correlacion_max.items()):
             if i == 5:  # Mostrar solo las 5 primeras variables
                 break

@@ -62,25 +62,21 @@ separadores = {
 }
 
 # Mostrar el selectbox para que el usuario elija el separador
-separador = st.selectbox("Selecciona el separador del CSV", list(separadores.keys()))
+separador = st.selectbox("Select CSV separator:", list(separadores.keys()))
 
 if uploaded_file is not None:
     try:
         df = pd.read_csv(uploaded_file, sep=separadores[separador])
-        st.success("Archivo cargado con éxito!")
+        st.success("CSV loaded succesfully!")
     except:
-        st.warning("Hubo un problema cargando el fichero, cargando de nuevo el df por defecto")
+        st.warning("There was an issue trying to load your file, loaded CSV by default.")
         df = pd.read_csv(default_df, sep=',')
 
 else:
 
-    st.warning("No se ha subido ningún archivo, cargando CSV predefinido.")
+    st.warning("No CSV file was loaded. Loading CSV by default.")
     df = pd.read_csv(default_df, sep=',')
     
-
-# ========================================================================
-
-df = delete_indexers(df)
 
 # ========================================================================
 
@@ -142,10 +138,10 @@ if 'numericas' not in st.session_state:
 
 # Contenedores para los bins
 st.header("Variables to exlude in further analysis")
-st.write("some variables such as indexes or IDs may not be suitable for uni/bivariant analysis")
+st.write("Some variables such as indexes or IDs may not be suitable for uni/bivariant analysis")
 
 # Selección de variables a excluir
-excluidos = st.multiselect("Variables a Excluir", options = all_vars, default=excluir)
+excluidos = st.multiselect("Variables to exclude:", options = all_vars, default=excluir)
 
 # Crear un contenedor para las variables no excluidas
 restantes = list(set(categoricas + numericas) - set(excluidos))
@@ -155,7 +151,7 @@ st.session_state['categoricas'] = [var for var in categoricas if var not in excl
 st.session_state['numericas'] = [var for var in numericas if var not in excluidos]
 st.session_state['excluidos'] = excluidos
 
-st.write("Variables excluidas:")
+st.write("Excluded variables:")
 st.write(st.session_state.excluidos)
 
 types['Categorical'] = st.session_state['categoricas']
@@ -333,9 +329,9 @@ def handle_click_select_model(new_type):
 type_of_model = st.radio('Type of Model:', ['Regression','Classification'])
 
 if type_of_model == 'Regression':
-    target = st.selectbox('Select target variable:', list(var_classification(df)['Numerical']), key = 'target')
+    target = st.selectbox('Select target variable:', list(st.session_state['numericas']), key = 'target')
 elif type_of_model == 'Classification':
-    target = st.selectbox('Select target variable:', list(var_classification(df)['Categorical']), key = 'target')
+    target = st.selectbox('Select target variable:', list(st.session_state['categoricas']), key = 'target')
 
 st.button('Change', on_click=handle_click_select_model(type_of_model))
 
