@@ -10,6 +10,8 @@ from sklearn.impute import SimpleImputer, KNNImputer
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from scipy.stats import *
+import warnings
+warnings.filterwarnings('ignore')
 
 
 # to run script, type in terminal:
@@ -26,9 +28,16 @@ Hope this helps with the first steps in your model!
 
 if 'number_of_rows' not in st.session_state:
     st.session_state['number_of_rows'] = 5
+
+
+if 'model_ranking' not in st.session_state:
+    st.session_state['model_ranking'] = False
+
     
 
 #==========================================================================
+
+default_df = 'housing.csv'
 
 st.title('Drag and Drop CSV File')
 
@@ -38,22 +47,38 @@ st.write('Please, drag & drop your csv file right below:')
 # Elemento de arrastrar y soltar para subir archivos
 uploaded_file = st.file_uploader("CSV file here", type="csv")
 
+# Crear un selectbox para seleccionar el separador
+separadores = {
+    'Coma (,)': ',',
+    'Punto y coma (;)': ';',
+    'Tabulación (\\t)': '\t',
+    'Barra vertical (|)': '|',
+    'Dos puntos (:)': ':',
+    'Espacio ( )': ' ',
+    'Guion (-)': '-',
+    'Almohadilla (#)': '#',
+    'Barra inclinada (/)': '/',
+    'Barra invertida (\\)': '\\'
+}
+
+# Mostrar el selectbox para que el usuario elija el separador
+separador = st.selectbox("Selecciona el separador del CSV", list(separadores.keys()))
+
 if uploaded_file is not None:
     try:
-        df = pd.read_csv(uploaded_file)
+        df = pd.read_csv(uploaded_file, sep=separadores[separador])
+        st.success("Archivo cargado con éxito!")
+    except:
+        st.warning("Hubo un problema cargando el fichero, cargando de nuevo el df por defecto")
+        df = pd.read_csv(default_df, sep=',')
 
-    except Exception as e:
-        # Si ocurre un error, mostramos un mensaje personalizado en lugar del error completo
-        st.title('Ha ocurrido un error')
-        st.write('Por favor, vuelva a intentarlo más tarde.')
-        st.stop()
 else:
-    st.write('Dataframe by default will be boston housing')
-    df = pd.read_csv('train.csv')
+
+    st.warning("No se ha subido ningún archivo, cargando CSV predefinido.")
+    df = pd.read_csv(default_df, sep=',')
+    
 
 # ========================================================================
-
-# eliminar indexers
 
 df = delete_indexers(df)
 
@@ -92,7 +117,53 @@ with col2:
 # mostrar el df:
 st.write(df.head(st.session_state['number_of_rows']))
 
+
 # =========================================================================
+# Proceso para modificar la clasificación de variables:
+
+
+types = var_classification(df)
+
+categoricas = types['Categorical']
+numericas   = types['Numerical']
+excluir     = types['Exclude']
+
+all_vars = list(categoricas) + list(numericas)
+
+# Inicializar estado de session si no existe
+if 'excluidos' not in st.session_state:
+    st.session_state['excluidos'] = excluir
+
+if 'categoricas' not in st.session_state:
+    st.session_state['categoricas'] = categoricas
+
+if 'numericas' not in st.session_state:
+    st.session_state['numericas'] = numericas
+
+# Contenedores para los bins
+st.header("Variables to exlude in further analysis")
+st.write("some variables such as indexes or IDs may not be suitable for uni/bivariant analysis")
+
+# Selección de variables a excluir
+excluidos = st.multiselect("Variables a Excluir", options = all_vars, default=excluir)
+
+# Crear un contenedor para las variables no excluidas
+restantes = list(set(categoricas + numericas) - set(excluidos))
+
+
+st.session_state['categoricas'] = [var for var in categoricas if var not in excluidos]
+st.session_state['numericas'] = [var for var in numericas if var not in excluidos]
+st.session_state['excluidos'] = excluidos
+
+st.write("Variables excluidas:")
+st.write(st.session_state.excluidos)
+
+types['Categorical'] = st.session_state['categoricas']
+types['Numerical'] = st.session_state['numericas']
+types['Exclude'] = st.session_state['excluidos']
+
+# =========================================================================
+
 
 # categorización de variables en:
 
@@ -104,8 +175,6 @@ st.write(df.head(st.session_state['number_of_rows']))
 st.subheader('Univariant Analysis')
 
 # crea el diccionario separando las variables en categoricas y numericas
-
-types = var_classification(df)
 
 if 'type' not in st.session_state:
     st.session_state['type'] = 'Categorical'
@@ -128,7 +197,7 @@ if st.session_state['type'] == 'Categorical':
     if len(types['Categorical']) > 0:
         # Seleccionar el tamaño de los bins
         # rad = st.slider("Select Radius", min_value=0, max_value=100, step = 10, value=30)
-        plot_pie(df, column)
+        # plot_pie(df, column)
         plot_barchart(df, column)
     else:
         st.write('No categorical variables in your dataset')
@@ -334,6 +403,7 @@ if submit_button:
         "selbox_1": fsm,
         "selbox_2": k
     }
+
     # execute only if form data has been modified
     if current_form_data != st.session_state.form_data:
         if fsm != None:
@@ -359,16 +429,18 @@ X_selected_features = st.session_state['x_selected_features']
 if 'model_ranking' not in st.session_state:
     st.session_state['model_ranking'] = False
 
-def show_or_hide_model_ranking():
-     st.session_state['model_ranking'] = not  st.session_state['model_ranking']
+
+def show_model_ranking():
+     st.session_state['model_ranking'] = True
+
 
 st.subheader("Model Performance")
 st.write("Once your data has been correctly preprocessed, it's time to check the performance on different models:")
 
 
-st.button('Ranking', on_click=show_or_hide_model_ranking, key = 'button_ranking')
+st.button('Ranking', on_click = show_model_ranking, key = 'button_ranking')
 
 
 if st.session_state['model_ranking']:
-    st.write('nada')
-    #model_ranking(st.session_state['model_ranking'], X_selected_features, y, type_of_model)
+    model_ranking(st.session_state['model_ranking'], X_selected_features, y, type_of_model)
+    st.session_state['model_ranking'] = False

@@ -16,8 +16,12 @@ from sklearn.feature_selection import SelectKBest, f_classif, RFE, SelectFromMod
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 import mrmr
+import lazypredict
+from lazypredict.Supervised import LazyClassifier
+from lazypredict.Supervised import LazyRegressor
 from mrmr import *
 from sklearn.model_selection import train_test_split
+import time
 
 
 
@@ -25,6 +29,7 @@ from sklearn.model_selection import train_test_split
 # funcion que clasifica las variables de un dataset:
 # categoricas
 # numericas
+
 
 def delete_indexers(df):
 
@@ -40,7 +45,8 @@ def var_classification(df):
 
     dict = {
         'Categorical': [],
-        'Numerical': []
+        'Numerical'  : [],
+        'Exclude'    : []
         }
     
     num = np.array(df.select_dtypes(include=['int64', 'float64']).columns)
@@ -80,8 +86,11 @@ def plot_hist(df, var, bin_step):
     st.altair_chart(hist, use_container_width=True)
 
 # función que muestra un pieplot de una variable categórica
-def plot_pie(df, var):
+def plot_barchart(df, var):
+
+
     source = pd.DataFrame(df[var].value_counts().reset_index())
+    source.columns = [var, 'count']
 
     pie = alt.Chart(source).mark_arc(innerRadius=70).encode(
         theta=alt.Theta(field="count", type="quantitative"),
@@ -95,11 +104,6 @@ def plot_pie(df, var):
     # Mostrar el pieplot en forma de anillo en Streamlit
     st.altair_chart(pie, use_container_width=True)
 
-# función que muestra un pieplot de una variable categórica
-def plot_barchart(df, var):   
-    source = pd.DataFrame(df[var].value_counts().reset_index())
-    source.columns = [var, 'count']
-
     bar = alt.Chart(source).mark_bar().encode(
         x= var + ':O',
         y='count:Q',
@@ -112,6 +116,7 @@ def plot_barchart(df, var):
 
     # Mostrar el pieplot en forma de anillo en Streamlit
     st.altair_chart(bar, use_container_width=True)
+
 
 # función que muestra un scatter de dos variables numéricas
 def scatterplot(df, col1, col2):
@@ -456,8 +461,9 @@ def feature_selector(selector, X, y, target_name, type_of_model, k):
 
     # regresión
     if type_of_model == 'Regression':
-
+            
         try:
+
             if selector != 'None':
 
                 if selector == 'Select K Best':
@@ -472,9 +478,9 @@ def feature_selector(selector, X, y, target_name, type_of_model, k):
                     selector_obj = SelectFromModel(estimator=model, max_features=k)
                 
                 elif selector == 'mrmr Regression':
-                    seleccionadas = mrmr_regression(X=X, y=y, K=k)
+                    seleccionadas = mrmr_regression(X=X, y=y, K=k, n_jobs=1)
                     X_selected = X[seleccionadas]
-                    #st.write(X[seleccionadas])
+                    st.write(X[seleccionadas])
                     return X_selected
 
                 selector_obj.fit(X, y)
@@ -491,10 +497,13 @@ def feature_selector(selector, X, y, target_name, type_of_model, k):
         except:
             st.write(f'Target variable {target_name} not suitable for regression')
     
+
+    
     # clasificación
     else:
-
+        
         try:
+
             if selector != 'None':
 
                 if selector == 'Select K Best':
@@ -509,7 +518,7 @@ def feature_selector(selector, X, y, target_name, type_of_model, k):
                     selector_obj = SelectFromModel(estimator=model, max_features=k)
 
                 elif selector == 'mrmr Classification':
-                    seleccionadas = mrmr_classif(X=X, y=y, K=k)
+                    seleccionadas = mrmr_classif(X=X, y=y, K=k, n_jobs=1)
                     X_selected = X[seleccionadas]
                     #st.write(X[seleccionadas])
                     return X_selected
@@ -529,35 +538,38 @@ def feature_selector(selector, X, y, target_name, type_of_model, k):
             st.write(f'Target variable {target_name} not suitable for classification')
 
 
+
+
 def model_ranking(bool, X_selected_features, y, type_of_model):
         
         if bool == True:
-            try:
-                st.write('model ranking:')
-                if type_of_model == 'Regression':
-                    X_train, X_test, y_train, y_test = train_test_split(X_selected_features,
-                                                                        y,
-                                                                        test_size= .033,
-                                                                        random_state =123)
-                    
-                    reg = LazyRegressor(verbose=0, ignore_warnings=False, custom_metric=None)
-                    models, predictions = reg.fit(X_train, X_test, y_train, y_test)
-                    st.write(models)
 
-                if type_of_model == 'Classification':
-                    X_train, X_test, y_train, y_test = train_test_split(X_selected_features,
-                                                                        y,
-                                                                        test_size= .033,
-                                                                        random_state =123)
-                    
-                    clf = LazyClassifier(verbose=0,ignore_warnings=True, custom_metric=None)
-                    models,predictions = clf.fit(X_train, X_test, y_train, y_test)
-                    st.write(models)
+            st.write('Loading model ranking, this might take a minute...')
+            if type_of_model == 'Regression':
+                X_train, X_test, y_train, y_test = train_test_split(X_selected_features,
+                                                                    y,
+                                                                    test_size= .33,
+                                                                    random_state = 123)
+                
+                reg = LazyRegressor(verbose=0, ignore_warnings=False, custom_metric=None)
+                selected_models = ['XGBRegressor', 'Lasso', 'Ridge', 'RandomForestRegressor', 'KNeighborsRegressor']
+                models, predictions = reg.fit(X_train, X_test, y_train, y_test)
+                st.write(models)
+
+            if type_of_model == 'Classification':
+                X_train, X_test, y_train, y_test = train_test_split(X_selected_features,
+                                                                    y,
+                                                                    test_size= .33,
+                                                                    random_state = 123)
+                
+                clf = LazyClassifier(verbose=0,ignore_warnings=True, custom_metric=None)
+                models,predictions = clf.fit(X_train, X_test, y_train, y_test)
+                st.write(models)
 
 
-            except:
-                st.write('an error occured')
+
 
         else:
+            
             st.write('Load previous process')
         
