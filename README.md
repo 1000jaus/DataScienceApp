@@ -1,50 +1,52 @@
-# Análisis y Evaluación de Modelos con Streamlit
-¡Bienvenido a Análisis y Evaluación de Modelos con Streamlit! Esta aplicación interactiva está diseñada para facilitar el análisis de datos, el preprocesamiento y la evaluación de modelos. Ideal para científicos de datos, analistas y desarrolladores, esta herramienta te permitirá explorar, transformar y evaluar tus datos con facilidad.
+# Analysis and Model Evaluation with Streamlit
+Welcome to Analysis and Model Evaluation with Streamlit! This interactive application is designed to facilitate data analysis, preprocessing, and model evaluation. Ideal for data scientists, analysts, and developers, this tool will allow you to explore, transform, and evaluate your data with ease.
 
-# 📦 Funcionalidades Principales
-## 📊 Análisis Univariante y Bivariante
-Visualización Gráfica: Genera gráficos para entender la distribución de cada variable (análisis univariante) y las relaciones entre variables (análisis bivariante).
-Análisis Estadístico: Obtén métricas clave como medias, medianas, desviaciones estándar y correlaciones.
-## 🔧 Preprocesamiento de Datos
-Imputación de Datos: Rellena los valores faltantes usando diferentes estrategias (media, mediana, moda).
-Estandarización: Normaliza y estandariza los datos para mejorar el rendimiento de los modelos.
-Selección de Características: Elige las variables más relevantes para tu modelo utilizando técnicas avanzadas de selección.
-## 🏆 Ranking y Evaluación de Modelos
-Modelos de Regresión y Clasificación: Evalúa más de 25 modelos distintos, tanto para regresión como para clasificación.
-Dashboard Interactivo: Visualiza un dashboard ordenado por rendimiento, facilitando la comparación y selección del mejor modelo para tu problema.
+# 📦 Main Features
+## 📊 Univariate and Bivariate Analysis
+Graphical Visualization: Generate graphs to understand the distribution of each variable (univariate analysis) and the relationships between variables (bivariate analysis).
+Statistical Analysis: Obtain key metrics such as means, medians, standard deviations, and correlations.
+## 🔧 Data Preprocessing
+Data Imputation: Fill in missing values using different strategies (mean, median, mode).
+Standardization: Normalize and standardize the data to improve model performance.
+Feature Selection: Choose the most relevant variables for your model using advanced selection techniques.
+## 🏆 Model Ranking and Evaluation
+Regression and Classification Models: Evaluate more than 25 different models, both for regression and classification.
+Interactive Dashboard: Visualize a performance-ranked dashboard, making it easier to compare and select the best model for your problem.
 
-## 🚀 Cómo Empezar
-### 1. _Clona el Repositorio_:
-Para clonar el repositorio a tu máquina local, usa el siguiente comando:
-
+## 🚀 Getting Started
+### 1. _Clone the Repository_:
+To clone the repository to your local machine, use the following command:
 ```bash
 git clone https://github.com/1000jaus/DataScienceApp.git
 cd DataScienceApp
 ```
-### 2. _Instala las Dependencias_:
-Asegúrate de tener Python 3.8 o superior instalado. Luego, instala las dependencias necesarias:
+### 2. _Install Dependencies_:
+Ensure you have Python 3.8 or higher installed. Then, install the necessary dependencies:
 
 ```bash
+Copiar código
 pip install -r requirements.txt
 ```
 
-### 3. _Ejecuta la Aplicación_:
-Inicia la aplicación Streamlit con el siguiente comando:
+### 3. _Run the Application_:
+Start the Streamlit application with the following command:
 
 ```bash
 python -m streamlit run main.py
 ```
 
-Accede a la aplicación en tu navegador en http://localhost:8501.
 
-## 📄 Documentación
-Para una guía detallada sobre cómo usar la aplicación y todas sus funcionalidades, consulta la documentación completa.
+Access the application in your browser at http://localhost:8501.
 
-### 📜 Licencia
-Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
 
-### 🤝 Contacto
-Para preguntas o comentarios, no dudes en contactarme:
+## 📄Documentation
+For a detailed guide on how to use the application and all its features, refer to the full documentation.
+
+### 📜 License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+### 🤝 Contact
+For questions or comments, feel free to contact me:
 
 1. Email: diego.horcajo2001@gmail.com
 2. LinkedIn: https://www.linkedin.com/in/diego-horcajo-abal-491a46255/
