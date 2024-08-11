@@ -1,11 +1,11 @@
 # Análisis y Evaluación de Modelos con Streamlit
 ¡Bienvenido a Análisis y Evaluación de Modelos con Streamlit! Esta aplicación interactiva está diseñada para facilitar el análisis de datos, el preprocesamiento y la evaluación de modelos. Ideal para científicos de datos, analistas y desarrolladores, esta herramienta te permitirá explorar, transformar y evaluar tus datos con facilidad.
 
-## 📦 Funcionalidades Principales
+# 📦 Funcionalidades Principales
 ## 📊 Análisis Univariante y Bivariante
 Visualización Gráfica: Genera gráficos para entender la distribución de cada variable (análisis univariante) y las relaciones entre variables (análisis bivariante).
 Análisis Estadístico: Obtén métricas clave como medias, medianas, desviaciones estándar y correlaciones.
-#🔧 Preprocesamiento de Datos
+##🔧 Preprocesamiento de Datos
 Imputación de Datos: Rellena los valores faltantes usando diferentes estrategias (media, mediana, moda).
 Estandarización: Normaliza y estandariza los datos para mejorar el rendimiento de los modelos.
 Selección de Características: Elige las variables más relevantes para tu modelo utilizando técnicas avanzadas de selección.
