@@ -38,9 +38,6 @@ python -m streamlit run main.py
 Access the application in your browser at http://localhost:8501.
 
 
-## 📄Documentation
-For a detailed guide on how to use the application and all its features, refer to the full documentation.
-
 ### 📜 License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
