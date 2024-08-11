@@ -24,21 +24,20 @@ cd DataScienceApp
 3. Instala las Dependencias
 Asegúrate de tener Python 3.8 o superior instalado. Luego, instala las dependencias necesarias:
 
-bash
-Copiar código
+```bash
 pip install -r requirements.txt
+```
+
 3. Ejecuta la Aplicación
 Inicia la aplicación Streamlit con el siguiente comando:
-
-streamlit run app.py
+```bash
+python -m streamlit run main.py
+```
 
 Accede a la aplicación en tu navegador en http://localhost:8501.
 
 ## 📄 Documentación
 Para una guía detallada sobre cómo usar la aplicación y todas sus funcionalidades, consulta la documentación completa.
-
-## 🛠 Contribuciones
-Las contribuciones son bienvenidas. Si deseas mejorar la aplicación, por favor sigue estos pasos:
 
 ### 📜 Licencia
 Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
