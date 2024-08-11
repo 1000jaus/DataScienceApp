@@ -38,11 +38,11 @@ Para una guía detallada sobre cómo usar la aplicación y todas sus funcionalid
 ## 🛠 Contribuciones
 Las contribuciones son bienvenidas. Si deseas mejorar la aplicación, por favor sigue estos pasos:
 
-##📜 Licencia
+### 📜 Licencia
 Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
 
-##🤝 Contacto
+### 🤝 Contacto
 Para preguntas o comentarios, no dudes en contactarme:
 
-1. Email: tu_email@example.com
-2. LinkedIn: tu_perfil
+1. Email: diego.horcajo2001@gmail.com
+2. LinkedIn: https://www.linkedin.com/in/diego-horcajo-abal-491a46255/
