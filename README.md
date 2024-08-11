@@ -14,22 +14,23 @@ Modelos de Regresión y Clasificación: Evalúa más de 25 modelos distintos, ta
 Dashboard Interactivo: Visualiza un dashboard ordenado por rendimiento, facilitando la comparación y selección del mejor modelo para tu problema.
 
 ## 🚀 Cómo Empezar
-### 1. Clona el Repositorio
+### 1. _Clona el Repositorio_:
 Para clonar el repositorio a tu máquina local, usa el siguiente comando:
 
 ```bash
 git clone https://github.com/1000jaus/DataScienceApp.git
 cd DataScienceApp
 ```
-3. Instala las Dependencias
+2. _Instala las Dependencias_:
 Asegúrate de tener Python 3.8 o superior instalado. Luego, instala las dependencias necesarias:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Ejecuta la Aplicación
+3. _Ejecuta la Aplicación_:
 Inicia la aplicación Streamlit con el siguiente comando:
+
 ```bash
 python -m streamlit run main.py
 ```
