@@ -12,13 +12,16 @@ Selección de Características: Elige las variables más relevantes para tu mode
 ##🏆 Ranking y Evaluación de Modelos
 Modelos de Regresión y Clasificación: Evalúa más de 25 modelos distintos, tanto para regresión como para clasificación.
 Dashboard Interactivo: Visualiza un dashboard ordenado por rendimiento, facilitando la comparación y selección del mejor modelo para tu problema.
-##🚀 Cómo Empezar
-1. Clona el Repositorio
-bash
-Copiar código
-git clone https://github.com/tu_usuario/tu_repositorio.git
-cd tu_repositorio
-2. Instala las Dependencias
+
+## 🚀 Cómo Empezar
+### 1. Clona el Repositorio
+Para clonar el repositorio a tu máquina local, usa el siguiente comando:
+
+```bash
+git clone https://github.com/1000jaus/DataScienceApp.git
+cd DataScienceApp
+```
+3. Instala las Dependencias
 Asegúrate de tener Python 3.8 o superior instalado. Luego, instala las dependencias necesarias:
 
 bash
@@ -27,9 +30,8 @@ pip install -r requirements.txt
 3. Ejecuta la Aplicación
 Inicia la aplicación Streamlit con el siguiente comando:
 
-bash
-Copiar código
 streamlit run app.py
+
 Accede a la aplicación en tu navegador en http://localhost:8501.
 
 ## 📄 Documentación
