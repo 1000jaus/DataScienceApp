@@ -21,14 +21,14 @@ Para clonar el repositorio a tu máquina local, usa el siguiente comando:
 git clone https://github.com/1000jaus/DataScienceApp.git
 cd DataScienceApp
 ```
-2. _Instala las Dependencias_:
+### 2. _Instala las Dependencias_:
 Asegúrate de tener Python 3.8 o superior instalado. Luego, instala las dependencias necesarias:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. _Ejecuta la Aplicación_:
+### 3. _Ejecuta la Aplicación_:
 Inicia la aplicación Streamlit con el siguiente comando:
 
 ```bash
