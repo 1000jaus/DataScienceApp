@@ -24,7 +24,6 @@ cd DataScienceApp
 Ensure you have Python 3.8 or higher installed. Then, install the necessary dependencies:
 
 ```bash
-Copiar código
 pip install -r requirements.txt
 ```
 
